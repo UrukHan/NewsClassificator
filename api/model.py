@@ -27,12 +27,13 @@ class BERT_MODEL():
         with open('model/df_columns', 'rb') as f: 
             self.df_columns = pickle.load(f)
         with open('model/c_weight', 'rb') as f: 
-            self.c_weight = pickle.load(f)            
+            self.c_weight = pickle.load(f)  
 
         self.MAX_SEQ_LEN = 256
-        self.BERT_NAME = 'DeepPavlov/rubert-base-cased-conversational'
+        self.BERT_NAME = 'model/'
         self.model = self.load_model()
         self.tokenizer = BertTokenizer.from_pretrained(self.BERT_NAME)
+
 
     
     # Model definition function
@@ -77,11 +78,9 @@ class BERT_MODEL():
     def predict(self, input):
         input = self.prepare_bert_input(input)
         pred = self.model.predict(input)
-        prediction = ''
+        prediction = {}
         print(np.round(pred[0]).astype(int))
         print(pred[0])
         for i in self.convert_predict(np.round(pred[0]).astype(int)):
-            if len(prediction) != 0:
-                prediction = prediction + '   |   '
-            prediction = prediction + i
+            prediction[i.split("_")[0]] = i.split("_")[1]
         return prediction

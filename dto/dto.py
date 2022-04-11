@@ -5,4 +5,4 @@ class UserRequestIn(BaseModel):
     text: str
 
 class PredictionOut(BaseModel):
-    output_text: str
+    prediction: dict

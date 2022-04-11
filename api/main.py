@@ -17,5 +17,4 @@ def health_check():
 async def answer(user_request: dto.UserRequestIn):
     text = user_request.text
     prediction = model.predict([text])
-    print(prediction)
-    return {'output_text': prediction}
+    return {'prediction': prediction}
